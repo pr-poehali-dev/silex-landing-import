@@ -224,13 +224,214 @@ function LeaveReviewForm({ onSubmitted }: { onSubmitted?: () => void }) {
   );
 }
 
+// ─── CATALOG DATA ─────────────────────────────────────────────────────────────
+const CATALOG = [
+  {
+    id: 'pipes',
+    title: 'Трубы',
+    image: 'https://cdn.poehali.dev/projects/53d4eefc-24fa-41e9-b99a-3ee269a34aaf/bucket/b0027a22-2ff1-4763-a903-80740aeb5c92.jpg',
+    subcategories: [
+      {
+        id: 'pressure',
+        title: 'Напорные',
+        items: ['100×3950', '150×3950', '200×3950', '200×5000', '250×5000', '300×3950', '300×5000', '400×3950', '400×5000', '500×5000'],
+        unit: 'мм',
+        colors: null,
+      },
+      {
+        id: 'nonpressure',
+        title: 'Безнапорные',
+        items: ['100×9×3950', '150×10×3950', '200×11×3950', '300×15×3950', '300×5000', '400×19×5000', '500×23×5000'],
+        unit: 'мм',
+        colors: null,
+      },
+    ],
+  },
+  {
+    id: 'slate',
+    title: 'Шифер',
+    image: 'https://cdn.poehali.dev/projects/53d4eefc-24fa-41e9-b99a-3ee269a34aaf/bucket/2b316a9f-dd27-4186-80d5-f14031da1d9d.jpeg',
+    subcategories: [
+      {
+        id: 'slate8',
+        title: '8-волновой',
+        items: ['1750×1130×5,2'],
+        unit: 'мм',
+        colors: null,
+      },
+      {
+        id: 'slateflat',
+        title: 'Плоский',
+        items: ['1200×1570×8', '1200×1570×10'],
+        unit: 'мм',
+        colors: null,
+      },
+      {
+        id: 'slategarden',
+        title: 'Для грядок',
+        items: ['390×2500×8'],
+        unit: 'мм',
+        colors: null,
+      },
+    ],
+  },
+  {
+    id: 'volnacolor',
+    title: 'Цветная кровля',
+    image: 'https://cdn.poehali.dev/projects/53d4eefc-24fa-41e9-b99a-3ee269a34aaf/bucket/51d898ff-06ce-4700-80cc-971341176291.jpeg',
+    subcategories: [
+      {
+        id: 'volnacolor',
+        title: 'Волнаколор',
+        items: ['1250×1097×6'],
+        unit: 'мм',
+        colors: ['Шоколад', 'Красно-коричневый', 'Графит'],
+      },
+    ],
+  },
+];
+
+function CatalogSection({ onOrderClick }: { onOrderClick: (params: string) => void }) {
+  const [catId, setCatId] = useState<string | null>(null);
+  const [subId, setSubId] = useState<string | null>(null);
+  const [selectedItem, setSelectedItem] = useState<string | null>(null);
+  const [selectedColor, setSelectedColor] = useState<string | null>(null);
+
+  const cat = CATALOG.find((c) => c.id === catId);
+  const sub = cat?.subcategories.find((s) => s.id === subId);
+
+  const goBack = () => {
+    if (subId) { setSubId(null); setSelectedItem(null); setSelectedColor(null); }
+    else { setCatId(null); }
+  };
+
+  const handleOrder = () => {
+    if (!cat || !sub || !selectedItem) return;
+    let params = `${cat.title} / ${sub.title} / ${selectedItem} ${sub.unit}`;
+    if (selectedColor) params += ` / Цвет: ${selectedColor}`;
+    onOrderClick(params);
+  };
+
+  // LEVEL 1 — categories
+  if (!catId) return (
+    <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+      {CATALOG.map((c) => (
+        <button
+          key={c.id}
+          onClick={() => { setCatId(c.id); setSubId(null); setSelectedItem(null); setSelectedColor(null); }}
+          className="group relative overflow-hidden rounded-2xl h-56 sm:h-64 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 text-left"
+        >
+          <img src={c.image} alt={c.title} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#1E3A5F]/80 via-[#1E3A5F]/30 to-transparent" />
+          <div className="absolute bottom-0 left-0 right-0 p-5">
+            <h3 className="text-white font-extrabold text-xl" style={{ fontFamily: 'Montserrat' }}>{c.title}</h3>
+            <span className="inline-flex items-center gap-1 mt-1 text-[#E67E22] text-sm font-semibold">
+              Смотреть <Icon name="ChevronRight" size={16} />
+            </span>
+          </div>
+        </button>
+      ))}
+    </div>
+  );
+
+  // LEVEL 2 — subcategories
+  if (!subId) return (
+    <div>
+      <div className="flex flex-wrap gap-2 items-center mb-6">
+        <button onClick={() => setCatId(null)} className="text-sm text-[#1E3A5F]/50 hover:text-[#E67E22] transition-colors">Каталог</button>
+        <Icon name="ChevronRight" size={14} className="text-[#1E3A5F]/30" />
+        <span className="text-sm font-semibold text-[#1E3A5F]">{cat!.title}</span>
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+        {cat!.subcategories.map((s) => (
+          <button
+            key={s.id}
+            onClick={() => { setSubId(s.id); setSelectedItem(null); setSelectedColor(null); }}
+            className="group border-2 border-[#1E3A5F]/10 hover:border-[#E67E22] rounded-2xl p-6 text-left transition-all duration-200 bg-white hover:shadow-lg"
+          >
+            <div className="w-10 h-10 rounded-xl bg-[#E67E22]/10 flex items-center justify-center mb-4 group-hover:bg-[#E67E22] transition-colors">
+              <Icon name="Package" size={20} className="text-[#E67E22] group-hover:text-white transition-colors" />
+            </div>
+            <h3 className="font-bold text-[#1E3A5F] text-lg mb-1">{s.title}</h3>
+            <p className="text-sm text-[#333]/50">{s.items.length} {s.items.length === 1 ? 'размер' : s.items.length < 5 ? 'размера' : 'размеров'}</p>
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+
+  // LEVEL 3 — product card
+  return (
+    <div>
+      <div className="flex flex-wrap gap-2 items-center mb-6">
+        <button onClick={() => { setCatId(null); setSubId(null); }} className="text-sm text-[#1E3A5F]/50 hover:text-[#E67E22] transition-colors">Каталог</button>
+        <Icon name="ChevronRight" size={14} className="text-[#1E3A5F]/30" />
+        <button onClick={() => setSubId(null)} className="text-sm text-[#1E3A5F]/50 hover:text-[#E67E22] transition-colors">{cat!.title}</button>
+        <Icon name="ChevronRight" size={14} className="text-[#1E3A5F]/30" />
+        <span className="text-sm font-semibold text-[#1E3A5F]">{sub!.title}</span>
+      </div>
+      <div className="bg-white rounded-2xl shadow-sm border border-[#1E3A5F]/8 p-6 md:p-8 max-w-2xl">
+        <h3 className="font-extrabold text-[#1E3A5F] text-xl mb-1" style={{ fontFamily: 'Montserrat' }}>
+          {cat!.title} — {sub!.title}
+        </h3>
+        <p className="text-sm text-[#333]/50 mb-6">Выберите размер{sub!.colors ? ' и цвет' : ''}</p>
+
+        <p className="text-xs font-semibold text-[#333]/40 uppercase tracking-wider mb-3">Размер, {sub!.unit}</p>
+        <div className="flex flex-wrap gap-2 mb-6">
+          {sub!.items.map((item) => (
+            <button
+              key={item}
+              onClick={() => setSelectedItem(item)}
+              className={`px-4 py-2 rounded-xl text-sm font-semibold border-2 transition-all duration-150 ${
+                selectedItem === item
+                  ? 'bg-[#1E3A5F] border-[#1E3A5F] text-white shadow-md'
+                  : 'border-[#1E3A5F]/15 text-[#1E3A5F] hover:border-[#E67E22] hover:text-[#E67E22] bg-white'
+              }`}
+            >
+              {item}
+            </button>
+          ))}
+        </div>
+
+        {sub!.colors && (
+          <>
+            <p className="text-xs font-semibold text-[#333]/40 uppercase tracking-wider mb-3">Цвет</p>
+            <div className="flex flex-wrap gap-2 mb-6">
+              {sub!.colors.map((color) => (
+                <button
+                  key={color}
+                  onClick={() => setSelectedColor(color)}
+                  className={`px-4 py-2 rounded-xl text-sm font-semibold border-2 transition-all duration-150 ${
+                    selectedColor === color
+                      ? 'bg-[#E67E22] border-[#E67E22] text-white shadow-md'
+                      : 'border-[#E67E22]/25 text-[#E67E22] hover:border-[#E67E22] bg-white'
+                  }`}
+                >
+                  {color}
+                </button>
+              ))}
+            </div>
+          </>
+        )}
+
+        <Button
+          onClick={handleOrder}
+          disabled={!selectedItem || (!!sub!.colors && !selectedColor)}
+          className="w-full sm:w-auto bg-[#E67E22] hover:bg-[#d35400] text-white font-bold px-8 py-3 text-base rounded-xl disabled:opacity-40"
+        >
+          Узнать цену
+        </Button>
+      </div>
+    </div>
+  );
+}
+
+// ─── INDEX ────────────────────────────────────────────────────────────────────
 const Index = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [headerScrolled, setHeaderScrolled] = useState(false);
   const [formData, setFormData] = useState({ name: '', phone: '', message: '' });
   const [formStatus, setFormStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
-  const [bannerFlipped, setBannerFlipped] = useState(false);
-  const bannerRef = useRef<HTMLDivElement>(null);
   const containerRef = useScrollAnimation();
 
   useEffect(() => {
@@ -252,44 +453,6 @@ const Index = () => {
     { label: 'Объекты', id: 'projects' },
     { label: 'Отзывы', id: 'reviews' },
     { label: 'Контакты', id: 'contacts' },
-  ];
-
-  const categories = [
-    {
-      frontImage: 'https://cdn.poehali.dev/projects/53d4eefc-24fa-41e9-b99a-3ee269a34aaf/bucket/47db70f8-7a47-48bb-9576-aa4ec318d8bc.jpg',
-      frontTitle: '100 × 250 × 625 мм',
-      backTitle: '',
-      backDescription: '',
-      backImage: 'https://cdn.poehali.dev/projects/53d4eefc-24fa-41e9-b99a-3ee269a34aaf/bucket/5405b939-cb36-4587-af76-d17ca0398a8a.jpg',
-    },
-    {
-      frontImage: 'https://cdn.poehali.dev/projects/53d4eefc-24fa-41e9-b99a-3ee269a34aaf/bucket/e1581d27-d273-4779-9019-c4d051c844b1.jpg',
-      frontTitle: '200 × 250 × 625 мм',
-      backTitle: '',
-      backDescription: '',
-      backImage: 'https://cdn.poehali.dev/projects/53d4eefc-24fa-41e9-b99a-3ee269a34aaf/bucket/6c442eeb-d949-4a79-a162-403edfab9204.jpg',
-    },
-    {
-      frontImage: 'https://cdn.poehali.dev/projects/53d4eefc-24fa-41e9-b99a-3ee269a34aaf/bucket/c7bd86f6-91d8-4185-afd7-d794efe5768f.jpg',
-      frontTitle: '300 × 250 × 625 мм',
-      backTitle: '',
-      backDescription: '',
-      backImage: 'https://cdn.poehali.dev/projects/53d4eefc-24fa-41e9-b99a-3ee269a34aaf/bucket/5c1754e7-fc31-4e8f-915d-5c62d85e21d1.jpg',
-    },
-    {
-      frontImage: 'https://cdn.poehali.dev/projects/53d4eefc-24fa-41e9-b99a-3ee269a34aaf/bucket/ce6d4fc1-ef25-4529-bcb3-2e5931307d95.jpg',
-      frontTitle: '400 × 250 × 625 мм',
-      backTitle: '',
-      backDescription: '',
-      backImage: 'https://cdn.poehali.dev/projects/53d4eefc-24fa-41e9-b99a-3ee269a34aaf/bucket/9a25da5c-3529-4b35-a7a4-93b7d2a31757.jpg',
-    },
-    {
-      frontImage: 'https://cdn.poehali.dev/projects/53d4eefc-24fa-41e9-b99a-3ee269a34aaf/bucket/7703afaa-ef76-478c-b772-61151620fbe7.jpg',
-      frontTitle: 'Клей для газобетона',
-      backTitle: '',
-      backDescription: '',
-      backImage: 'https://cdn.poehali.dev/projects/53d4eefc-24fa-41e9-b99a-3ee269a34aaf/bucket/4ef59985-b755-4c2e-afed-91b94a402701.jpg',
-    },
   ];
 
   const services = [
@@ -482,80 +645,22 @@ const Index = () => {
 
       {/* CATEGORIES */}
       <section id="categories" className="py-16 md:py-24 bg-[#F8F8F8]">
-        <div className="w-full px-4 md:px-8">
+        <div className="max-w-[1200px] mx-auto px-4 md:px-8">
           <div className="scroll-animate text-center mb-12 md:mb-16">
             <p className="text-[#E67E22] font-semibold text-sm uppercase tracking-widest mb-3">Каталог</p>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-[#1E3A5F]" style={{ fontFamily: 'Montserrat' }}>Каталог газобетона</h2>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-[#1E3A5F]" style={{ fontFamily: 'Montserrat' }}>
+              Асбестоцементные изделия
+            </h2>
             <p className="text-[#333]/60 mt-4 max-w-xl mx-auto">
-              Наведите на карточку, чтобы узнать подробности
+              Выберите категорию, затем подкатегорию и нужный размер
             </p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-            {categories.map((cat, i) => (
-              <div key={i} className="scroll-animate" style={{ transitionDelay: `${i * 0.1}s` }}>
-                <FlipCard {...cat} noBlur clickable />
-              </div>
-            ))}
-          </div>
-          <div className="banner-roll-in w-full max-w-4xl px-4 mx-auto mt-12 animate-heartbeat">
-            <div
-              className="banner-flip-container relative"
-              onMouseMove={(e) => {
-                const el = e.currentTarget as HTMLDivElement;
-                const rect = el.getBoundingClientRect();
-                const x = (e.clientX - rect.left) / rect.width - 0.5;
-                const y = (e.clientY - rect.top) / rect.height - 0.5;
-                el.style.transform = `perspective(800px) rotateY(${x * 10}deg) rotateX(${-y * 10}deg) scale(1.02)`;
-                el.style.transition = 'transform 0.1s ease';
-              }}
-              onMouseLeave={(e) => {
-                const el = e.currentTarget as HTMLDivElement;
-                el.style.transform = 'perspective(800px) rotateY(0deg) rotateX(0deg) scale(1)';
-                el.style.transition = 'transform 0.4s ease';
-              }}
-              onClick={() => {
-                setBannerFlipped(!bannerFlipped);
-                if (!bannerFlipped) {
-                  const container = bannerRef.current;
-                  if (container) {
-                    const rect = container.getBoundingClientRect();
-                    const colors = ['#E67E22', '#1E3A5F', '#FFD700', '#FF4444', '#44FF44', '#FF44FF', '#44FFFF', '#FFFFFF'];
-                    for (let i = 0; i < 40; i++) {
-                      const confetti = document.createElement('div');
-                      confetti.className = 'confetti-piece';
-                      confetti.style.left = `${rect.width / 2}px`;
-                      confetti.style.top = `${rect.height / 2}px`;
-                      confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                      const angle = (Math.random() * 360) * (Math.PI / 180);
-                      const distance = 80 + Math.random() * 250;
-                      const tx = Math.cos(angle) * distance;
-                      const ty = Math.sin(angle) * distance - Math.random() * 150;
-                      const rot = Math.random() * 720 - 360;
-                      const scale = 0.5 + Math.random() * 1.5;
-                      confetti.style.animation = `confettiPop ${0.8 + Math.random() * 0.6}s ease-out forwards`;
-                      confetti.style.transform = `translate(0,0) rotate(0deg) scale(${scale})`;
-                      confetti.animate([
-                        { transform: `translate(0,0) rotate(0deg) scale(${scale})`, opacity: 1 },
-                        { transform: `translate(${tx}px,${ty}px) rotate(${rot}deg) scale(0)`, opacity: 0 }
-                      ], { duration: 800 + Math.random() * 600, easing: 'cubic-bezier(0.25,0.46,0.45,0.94)', fill: 'forwards' });
-                      container.appendChild(confetti);
-                      setTimeout(() => confetti.remove(), 1500);
-                    }
-                  }
-                }
-              }}
-              ref={bannerRef}
-            >
-              <div className={`banner-flip-inner ${bannerFlipped ? 'flipped' : ''}`}>
-                <div className="banner-flip-front">
-                  <img src="https://cdn.poehali.dev/projects/53d4eefc-24fa-41e9-b99a-3ee269a34aaf/bucket/241760fa-144b-4952-bb7d-9be11b2e5f95.jpg" alt="Акция — газобетон 13 150 руб. м³" className="w-full h-auto rounded-2xl mx-0 px-0 py-[5px] my-0 object-contain" />
-                </div>
-                <div className="banner-flip-back">
-                  <img src="https://cdn.poehali.dev/projects/53d4eefc-24fa-41e9-b99a-3ee269a34aaf/bucket/57727bda-9c18-43a4-a5c0-b9d6e85c337b.jpg" alt="Акции и предложения" className="w-full h-auto object-cover rounded-2xl" />
-                </div>
-              </div>
-            </div>
-          </div>
+          <CatalogSection
+            onOrderClick={(params) => {
+              setFormData((prev) => ({ ...prev, message: params }));
+              scrollTo('callback');
+            }}
+          />
         </div>
       </section>
 
