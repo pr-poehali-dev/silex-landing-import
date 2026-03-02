@@ -621,9 +621,9 @@ const Index = () => {
       >
         <div className="max-w-[1200px] mx-auto px-4 md:px-8 text-center text-white md:pt-[300px] py-[205px]">
           <h1 className="md:text-5xl lg:text-6xl leading-tight animate-fade-in mx-0 px-11 text-5xl my-4 font-black" style={{ fontFamily: 'Montserrat' }}>
-            Асбестоцементные трубы и шифер —
+            Асбестоцементные трубы и шифер.
             <br />
-            <span className="text-[#E67E22]">классика, которая работает</span>
+            <span className="text-[#E67E22]">Классика, которая работает</span>
           </h1>
           <p className="text-lg md:text-2xl text-white/85 max-w-3xl mx-auto mb-8 animate-fade-in-delay-1">
             Гарантия качества в каждом блоке
