@@ -370,7 +370,8 @@ function CatalogSection({ onOrderClick }: { onOrderClick: (params: string) => vo
         <Icon name="ChevronRight" size={14} className="text-[#1E3A5F]/30" />
         <span className="text-sm font-semibold text-[#1E3A5F]">{sub!.title}</span>
       </div>
-      <div className="bg-white rounded-2xl shadow-sm border border-[#1E3A5F]/8 p-6 md:p-8 max-w-2xl">
+      <div className={`flex flex-col ${sub!.id === 'nonpressure' ? 'md:flex-row' : ''} gap-6 items-start`}>
+      <div className="bg-white rounded-2xl shadow-sm border border-[#1E3A5F]/8 p-6 md:p-8 flex-1 min-w-0">
         <h3 className="font-extrabold text-[#1E3A5F] text-xl mb-1" style={{ fontFamily: 'Montserrat' }}>
           {cat!.title} — {sub!.title}
         </h3>
@@ -421,6 +422,17 @@ function CatalogSection({ onOrderClick }: { onOrderClick: (params: string) => vo
         >
           Узнать цену
         </Button>
+      </div>
+      {sub!.id === 'nonpressure' && (
+        <div className="hidden md:block w-72 lg:w-80 flex-shrink-0 rounded-2xl overflow-hidden shadow-sm border border-[#1E3A5F]/8">
+          <img
+            src="https://cdn.poehali.dev/projects/ed2b7d01-b39a-4dfc-86fa-df4a86f0bc38/bucket/bcbf3f7e-f78d-440e-b0bc-9a7e7d5bf530.png"
+            alt="Безнапорные трубы"
+            className="w-full h-full object-cover"
+            style={{ minHeight: '280px' }}
+          />
+        </div>
+      )}
       </div>
     </div>
   );
