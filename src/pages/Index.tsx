@@ -426,7 +426,7 @@ function CatalogSection({ onOrderClick }: { onOrderClick: (params: string) => vo
         </div>
       </div>
       {sub!.id === 'nonpressure' && (
-        <div className="hidden md:flex w-72 lg:w-96 flex-shrink-0 rounded-2xl overflow-hidden shadow-sm border border-[#1E3A5F]/8">
+        <div className="hidden md:flex flex-1 min-w-0 rounded-2xl overflow-hidden shadow-sm border border-[#1E3A5F]/8">
           <img
             src="https://cdn.poehali.dev/projects/ed2b7d01-b39a-4dfc-86fa-df4a86f0bc38/bucket/37c2414a-1765-4a31-85e4-d9d8eae5c042.jpeg"
             alt="Безнапорные трубы"
