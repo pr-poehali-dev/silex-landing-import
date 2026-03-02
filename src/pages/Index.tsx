@@ -625,9 +625,7 @@ const Index = () => {
             <br />
             <span className="text-[#E67E22]">Классика, которая работает</span>
           </h1>
-          <p className="text-lg md:text-2xl text-white/85 max-w-3xl mx-auto mb-8 animate-fade-in-delay-1">
-            Гарантия качества в каждом блоке
-          </p>
+
         </div>
       </section>
 
