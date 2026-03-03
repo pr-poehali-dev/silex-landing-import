@@ -250,7 +250,8 @@ const CATALOG = [
   {
     id: 'slate',
     title: 'Шифер',
-    image: 'https://cdn.poehali.dev/projects/53d4eefc-24fa-41e9-b99a-3ee269a34aaf/bucket/2b316a9f-dd27-4186-80d5-f14031da1d9d.jpeg',
+    image: 'https://cdn.poehali.dev/projects/ed2b7d01-b39a-4dfc-86fa-df4a86f0bc38/bucket/4d3ebc7d-5641-44a2-aff3-1d9c86e9b03b.jpeg',
+    imageFit: 'object-contain' as const,
     subcategories: [
       {
         id: 'slate8',
@@ -321,7 +322,7 @@ function CatalogSection({ onOrderClick }: { onOrderClick: (params: string) => vo
           onClick={() => { setCatId(c.id); setSubId(null); setSelectedItem(null); setSelectedColor(null); }}
           className="group relative overflow-hidden rounded-2xl h-56 sm:h-64 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 text-left"
         >
-          <img src={c.image} alt={c.title} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+          <img src={c.image} alt={c.title} className={`absolute inset-0 w-full h-full ${'imageFit' in c ? c.imageFit : 'object-cover'} group-hover:scale-105 transition-transform duration-500`} />
           <div className="absolute inset-0 bg-gradient-to-t from-[#1E3A5F]/80 via-[#1E3A5F]/30 to-transparent" />
           <div className="absolute bottom-0 left-0 right-0 p-5">
             <h3 className="text-white font-extrabold text-xl" style={{ fontFamily: 'Montserrat' }}>{c.title}</h3>
