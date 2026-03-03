@@ -808,7 +808,9 @@ const Index = () => {
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-[#1E3A5F]" style={{ fontFamily: 'Montserrat' }}>
               Выполненные объекты
             </h2>
-
+            <p className="text-[#333]/60 mt-4 max-w-xl mx-auto">
+              Наведите на карточку, чтобы увидеть детали поставки
+            </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {projects.map((proj, i) => (
