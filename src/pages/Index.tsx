@@ -229,7 +229,8 @@ const CATALOG = [
   {
     id: 'pipes',
     title: 'Трубы',
-    image: 'https://cdn.poehali.dev/projects/ed2b7d01-b39a-4dfc-86fa-df4a86f0bc38/bucket/6b508686-088d-4267-ace3-8bc2de4d5c25.jpeg',
+    image: 'https://cdn.poehali.dev/projects/ed2b7d01-b39a-4dfc-86fa-df4a86f0bc38/bucket/d9a21abc-ae67-4ca3-afe5-dbdcd0430f52.jpg',
+    imageFit: 'object-contain' as const,
     subcategories: [
       {
         id: 'pressure',
