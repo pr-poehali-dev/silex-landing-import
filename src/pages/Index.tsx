@@ -469,7 +469,7 @@ const Index = () => {
 
   const navItems = [
     { label: 'О компании', id: 'trust' },
-    { label: 'Товары', id: 'categories' },
+    { label: 'Каталог', id: 'categories' },
     { label: 'Преимущества', id: 'why-vis' },
     { label: 'Услуги', id: 'services' },
     { label: 'Объекты', id: 'projects' },
