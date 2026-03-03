@@ -518,7 +518,7 @@ const Index = () => {
     { label: 'Каталог', id: 'categories' },
     { label: 'Преимущества', id: 'why-vis' },
     { label: 'Услуги', id: 'services' },
-    { label: 'Объекты', id: 'projects' },
+    { label: 'Портфолио', id: 'projects' },
     { label: 'Отзывы', id: 'reviews' },
     { label: 'Контакты', id: 'contacts' },
   ];
