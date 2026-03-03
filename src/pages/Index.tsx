@@ -250,7 +250,7 @@ const CATALOG = [
   {
     id: 'slate',
     title: 'Шифер',
-    image: 'https://cdn.poehali.dev/projects/ed2b7d01-b39a-4dfc-86fa-df4a86f0bc38/bucket/4d3ebc7d-5641-44a2-aff3-1d9c86e9b03b.jpeg',
+    image: 'https://cdn.poehali.dev/projects/ed2b7d01-b39a-4dfc-86fa-df4a86f0bc38/bucket/d11d7001-54b0-4ecc-9bec-bfdd738d8306.jpg',
     imageFit: 'object-contain' as const,
     subcategories: [
       {
