@@ -279,7 +279,8 @@ const CATALOG = [
   {
     id: 'volnacolor',
     title: 'Цветная кровля',
-    image: 'https://cdn.poehali.dev/projects/53d4eefc-24fa-41e9-b99a-3ee269a34aaf/bucket/51d898ff-06ce-4700-80cc-971341176291.jpeg',
+    image: 'https://cdn.poehali.dev/projects/ed2b7d01-b39a-4dfc-86fa-df4a86f0bc38/bucket/7a20d915-df8d-47f9-9ac3-eeca587d8d82.png',
+    imageFit: 'object-contain' as const,
     subcategories: [
       {
         id: 'volnacolor',
