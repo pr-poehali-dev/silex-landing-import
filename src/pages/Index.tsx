@@ -96,7 +96,8 @@ function FlipCard({ frontImage, frontTitle, backTitle, backDescription, backImag
   return (
     <>
       <div
-        className="flip-card h-[320px] md:h-[360px] cursor-pointer"
+        className="flip-card w-full cursor-pointer"
+        style={{ height: '280px' }}
         onMouseEnter={() => setFlipped(true)}
         onMouseLeave={handleMouseLeaveCard}
       >
@@ -107,18 +108,18 @@ function FlipCard({ frontImage, frontTitle, backTitle, backDescription, backImag
             transition: 'transform 0.6s'
           }}
         >
-          <div className="flip-card-front bg-white shadow-lg">
+          <div className="flip-card-front shadow-lg overflow-hidden rounded-2xl">
             <img src={frontImage} alt={frontTitle} className="w-full h-full object-cover" />
           </div>
           <div
-            className={`flip-card-back shadow-lg overflow-hidden relative${canOpenModal ? ' cursor-zoom-in' : ''}`}
+            className={`flip-card-back shadow-lg overflow-hidden relative rounded-2xl${canOpenModal ? ' cursor-zoom-in' : ''}`}
             onClick={handleBackClick}
           >
-            <img src={backImage || frontImage} alt={backTitle} className="absolute inset-0 w-full h-full object-cover" />
-            <div className="absolute inset-0" style={{ background: 'rgba(30,58,95,0.72)', backdropFilter: noBlur ? undefined : 'blur(6px)' }} />
+            <img src={frontImage} alt={backTitle} className="absolute inset-0 w-full h-full object-cover" />
+            <div className="absolute inset-0" style={{ background: 'rgba(20,40,80,0.55)', backdropFilter: 'blur(8px)' }} />
             <div className="relative z-10 flex flex-col items-center justify-center h-full p-6 text-white text-center">
-              <h3 className="font-bold text-xl mb-3">{backTitle}</h3>
-              <p className="text-white/85 text-sm leading-relaxed">{backDescription}</p>
+              <h3 className="font-bold text-lg mb-2">{backTitle}</h3>
+              <p className="text-white/90 text-sm leading-relaxed">{backDescription}</p>
             </div>
           </div>
         </div>
@@ -821,7 +822,7 @@ const Index = () => {
               Наведите на карточку, чтобы увидеть детали поставки
             </p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
             {projects.map((proj, i) => (
               <div key={i} className="scroll-animate" style={{ transitionDelay: `${i * 0.1}s` }}>
                 <FlipCard {...proj} />
