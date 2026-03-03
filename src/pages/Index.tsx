@@ -373,7 +373,7 @@ function CatalogSection({ onOrderClick }: { onOrderClick: (params: string) => vo
         <Icon name="ChevronRight" size={14} className="text-[#1E3A5F]/30" />
         <span className="text-sm font-semibold text-[#1E3A5F]">{sub!.title}</span>
       </div>
-      <div className={`flex flex-col ${sub!.id === 'nonpressure' || sub!.id === 'pressure' ? 'md:flex-row' : ''} gap-6 items-stretch`}>
+      <div className={`flex flex-col ${sub!.id === 'nonpressure' || sub!.id === 'pressure' || sub!.id === 'volnacolor' ? 'md:flex-row' : ''} gap-6 items-stretch`}>
       <div className="bg-white rounded-2xl shadow-sm border border-[#1E3A5F]/8 p-6 md:p-8 flex-1 min-w-0 flex flex-col">
         <h3 className="font-extrabold text-[#1E3A5F] text-xl mb-1" style={{ fontFamily: 'Montserrat' }}>
           {cat!.title} — {sub!.title}
@@ -444,6 +444,27 @@ function CatalogSection({ onOrderClick }: { onOrderClick: (params: string) => vo
             alt="Напорные трубы"
             className="w-full h-full object-fill"
           />
+        </div>
+      )}
+      {sub!.id === 'volnacolor' && selectedColor && (() => {
+        const colorImages: Record<string, string> = {
+          'Красно-коричневый': 'https://cdn.poehali.dev/projects/ed2b7d01-b39a-4dfc-86fa-df4a86f0bc38/bucket/05e88ba0-3080-4957-9fe5-6a9094ac9cd8.jpeg',
+          'Графит': 'https://cdn.poehali.dev/projects/ed2b7d01-b39a-4dfc-86fa-df4a86f0bc38/bucket/25c5fc1a-4c16-4126-9964-2e48822b1d2d.png',
+          'Шоколад': 'https://cdn.poehali.dev/projects/ed2b7d01-b39a-4dfc-86fa-df4a86f0bc38/bucket/9688e0c2-792e-48d4-a827-f3f4af86c450.png',
+        };
+        return (
+          <div className="hidden md:flex flex-1 min-w-0 rounded-2xl overflow-hidden shadow-sm border border-[#1E3A5F]/8">
+            <img
+              src={colorImages[selectedColor]}
+              alt={selectedColor}
+              className="w-full h-full object-contain"
+            />
+          </div>
+        );
+      })()}
+      {sub!.id === 'volnacolor' && !selectedColor && (
+        <div className="hidden md:flex flex-1 min-w-0 rounded-2xl overflow-hidden shadow-sm border border-[#1E3A5F]/8 bg-[#f5f7fa] items-center justify-center">
+          <p className="text-[#1E3A5F]/30 text-sm">Выберите цвет</p>
         </div>
       )}
       </div>
