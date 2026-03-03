@@ -373,7 +373,7 @@ function CatalogSection({ onOrderClick }: { onOrderClick: (params: string) => vo
         <Icon name="ChevronRight" size={14} className="text-[#1E3A5F]/30" />
         <span className="text-sm font-semibold text-[#1E3A5F]">{sub!.title}</span>
       </div>
-      <div className={`flex flex-col ${sub!.id === 'nonpressure' || sub!.id === 'pressure' || sub!.id === 'volnacolor' ? 'md:flex-row' : ''} gap-6 items-stretch`}>
+      <div className={`flex flex-col ${sub!.id === 'nonpressure' || sub!.id === 'pressure' || sub!.id === 'volnacolor' || sub!.id === 'slategarden' ? 'md:flex-row' : ''} gap-6 items-stretch`}>
       <div className="bg-white rounded-2xl shadow-sm border border-[#1E3A5F]/8 p-6 md:p-8 flex-1 min-w-0 flex flex-col">
         <h3 className="font-extrabold text-[#1E3A5F] text-xl mb-1" style={{ fontFamily: 'Montserrat' }}>
           {cat!.title} — {sub!.title}
@@ -462,6 +462,15 @@ function CatalogSection({ onOrderClick }: { onOrderClick: (params: string) => vo
           </div>
         );
       })()}
+      {sub!.id === 'slategarden' && (
+        <div className="hidden md:flex flex-1 min-w-0 rounded-2xl overflow-hidden shadow-sm border border-[#1E3A5F]/8">
+          <img
+            src="https://cdn.poehali.dev/projects/ed2b7d01-b39a-4dfc-86fa-df4a86f0bc38/bucket/f5d1dae2-852d-4812-9ca1-b1fda21266be.jpeg"
+            alt="Шифер для грядок"
+            className="w-full h-full object-contain"
+          />
+        </div>
+      )}
       {sub!.id === 'volnacolor' && !selectedColor && (
         <div className="hidden md:flex flex-1 min-w-0 rounded-2xl overflow-hidden shadow-sm border border-[#1E3A5F]/8">
           <img
