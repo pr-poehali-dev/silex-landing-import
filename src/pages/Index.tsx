@@ -370,7 +370,7 @@ function CatalogSection({ onOrderClick }: { onOrderClick: (params: string) => vo
         <Icon name="ChevronRight" size={14} className="text-[#1E3A5F]/30" />
         <span className="text-sm font-semibold text-[#1E3A5F]">{sub!.title}</span>
       </div>
-      <div className={`flex flex-col ${sub!.id === 'nonpressure' ? 'md:flex-row' : ''} gap-6 items-stretch`}>
+      <div className={`flex flex-col ${sub!.id === 'nonpressure' || sub!.id === 'pressure' ? 'md:flex-row' : ''} gap-6 items-stretch`}>
       <div className="bg-white rounded-2xl shadow-sm border border-[#1E3A5F]/8 p-6 md:p-8 flex-1 min-w-0 flex flex-col">
         <h3 className="font-extrabold text-[#1E3A5F] text-xl mb-1" style={{ fontFamily: 'Montserrat' }}>
           {cat!.title} — {sub!.title}
@@ -431,6 +431,15 @@ function CatalogSection({ onOrderClick }: { onOrderClick: (params: string) => vo
             src="https://cdn.poehali.dev/projects/ed2b7d01-b39a-4dfc-86fa-df4a86f0bc38/bucket/37c2414a-1765-4a31-85e4-d9d8eae5c042.jpeg"
             alt="Безнапорные трубы"
             className="w-full h-full object-fill"
+          />
+        </div>
+      )}
+      {sub!.id === 'pressure' && (
+        <div className="hidden md:flex flex-1 min-w-0 rounded-2xl overflow-hidden shadow-sm border border-[#1E3A5F]/8">
+          <img
+            src="https://cdn.poehali.dev/projects/ed2b7d01-b39a-4dfc-86fa-df4a86f0bc38/bucket/7f63dc6f-e3b1-4046-84ff-774597eea542.png"
+            alt="Напорные трубы"
+            className="w-full h-full object-cover"
           />
         </div>
       )}
