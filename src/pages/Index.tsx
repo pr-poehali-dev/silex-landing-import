@@ -442,7 +442,7 @@ function CatalogSection({ onOrderClick }: { onOrderClick: (params: string) => vo
           <img
             src="https://cdn.poehali.dev/projects/ed2b7d01-b39a-4dfc-86fa-df4a86f0bc38/bucket/7f63dc6f-e3b1-4046-84ff-774597eea542.png"
             alt="Напорные трубы"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-fill"
           />
         </div>
       )}
