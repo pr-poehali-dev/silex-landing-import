@@ -463,8 +463,12 @@ function CatalogSection({ onOrderClick }: { onOrderClick: (params: string) => vo
         );
       })()}
       {sub!.id === 'volnacolor' && !selectedColor && (
-        <div className="hidden md:flex flex-1 min-w-0 rounded-2xl overflow-hidden shadow-sm border border-[#1E3A5F]/8 bg-[#f5f7fa] items-center justify-center">
-          <p className="text-[#1E3A5F]/30 text-sm">Выберите цвет</p>
+        <div className="hidden md:flex flex-1 min-w-0 rounded-2xl overflow-hidden shadow-sm border border-[#1E3A5F]/8">
+          <img
+            src="https://cdn.poehali.dev/projects/ed2b7d01-b39a-4dfc-86fa-df4a86f0bc38/bucket/30905985-7355-4841-aaf7-821786cbc982.jpeg"
+            alt="Волнаколор цвета"
+            className="w-full h-full object-contain"
+          />
         </div>
       )}
       </div>
