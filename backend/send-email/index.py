@@ -22,6 +22,7 @@ def handler(event: dict, context) -> dict:
 
     body = json.loads(event.get('body') or '{}')
     name = body.get('name', '').strip()
+    email = body.get('email', '').strip()
     phone = body.get('phone', '').strip()
     message = body.get('message', '').strip()
 
@@ -40,6 +41,10 @@ def handler(event: dict, context) -> dict:
             <tr>
                 <td style="padding: 8px 12px; background: #f5f5f5; font-weight: bold; width: 140px;">Имя</td>
                 <td style="padding: 8px 12px; border-bottom: 1px solid #eee;">{name or 'не указано'}</td>
+            </tr>
+            <tr>
+                <td style="padding: 8px 12px; background: #f5f5f5; font-weight: bold;">Email</td>
+                <td style="padding: 8px 12px; border-bottom: 1px solid #eee;">{email or 'не указан'}</td>
             </tr>
             <tr>
                 <td style="padding: 8px 12px; background: #f5f5f5; font-weight: bold;">Телефон</td>

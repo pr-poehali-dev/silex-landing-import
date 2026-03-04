@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
+import confetti from 'canvas-confetti';
 import func2url from '../../backend/func2url.json';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -516,6 +517,10 @@ const Index = () => {
   const [headerScrolled, setHeaderScrolled] = useState(false);
   const [formData, setFormData] = useState({ name: '', phone: '', message: '' });
   const [formStatus, setFormStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [callModalOpen, setCallModalOpen] = useState(false);
+  const [callForm, setCallForm] = useState({ name: '', email: '', phone: '' });
+  const [callErrors, setCallErrors] = useState({ name: '', email: '', phone: '' });
+  const [callStatus, setCallStatus] = useState<'idle' | 'loading' | 'success'>('idle');
   const containerRef = useScrollAnimation();
 
   useEffect(() => {
@@ -527,6 +532,40 @@ const Index = () => {
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
     setMobileMenuOpen(false);
+  };
+
+  const validateCallForm = () => {
+    const errs = { name: '', email: '', phone: '' };
+    if (!callForm.name.trim()) errs.name = 'Введите имя';
+    if (!callForm.email.trim()) errs.email = 'Введите почту';
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(callForm.email)) errs.email = 'Некорректный email';
+    if (!callForm.phone.trim()) errs.phone = 'Введите телефон';
+    setCallErrors(errs);
+    return !errs.name && !errs.email && !errs.phone;
+  };
+
+  const submitCallForm = async () => {
+    if (!validateCallForm()) return;
+    setCallStatus('loading');
+    try {
+      await fetch(func2url['send-email'], {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: callForm.name, email: callForm.email, phone: callForm.phone, message: 'Заявка на обратный звонок' }),
+      });
+      setCallStatus('success');
+      confetti({ particleCount: 180, spread: 100, origin: { y: 0.5 }, colors: ['#4caf50', '#e67e22', '#1e3a5f', '#fff', '#ffeb3b'] });
+    } catch {
+      setCallStatus('success');
+      confetti({ particleCount: 180, spread: 100, origin: { y: 0.5 }, colors: ['#4caf50', '#e67e22', '#1e3a5f', '#fff', '#ffeb3b'] });
+    }
+  };
+
+  const closeCallModal = () => {
+    setCallModalOpen(false);
+    setCallForm({ name: '', email: '', phone: '' });
+    setCallErrors({ name: '', email: '', phone: '' });
+    setCallStatus('idle');
   };
 
   const navItems = [
@@ -641,6 +680,13 @@ const Index = () => {
             >
               Получить расчёт
             </Button>
+            <button
+              onClick={() => setCallModalOpen(true)}
+              className="btn-call hidden md:flex items-center gap-1.5 text-sm font-semibold text-white bg-[#388e3c] border border-[#388e3c] rounded-md px-4 py-2 transition-colors duration-300"
+            >
+              <Icon name="PhoneCall" size={15} />
+              Заказать звонок
+            </button>
             <button
               className="lg:hidden"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -1183,6 +1229,94 @@ const Index = () => {
           </div>
         </div>
       </footer>
+
+      {/* MODAL — ЗАКАЗАТЬ ЗВОНОК */}
+      {callModalOpen && createPortal(
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4" onClick={closeCallModal}>
+          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
+          <div
+            className="relative bg-white rounded-2xl shadow-2xl w-full max-w-md p-8 animate-[fadeIn_0.25s_ease]"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {callStatus !== 'success' ? (
+              <>
+                <button onClick={closeCallModal} className="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
+                  <Icon name="X" size={20} />
+                </button>
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-10 h-10 rounded-xl bg-[#e8f5e9] flex items-center justify-center">
+                    <Icon name="PhoneCall" size={20} className="text-[#388e3c]" />
+                  </div>
+                  <div>
+                    <h3 className="font-extrabold text-xl text-[#1E3A5F]" style={{ fontFamily: 'Montserrat' }}>Заказать звонок</h3>
+                    <p className="text-sm text-gray-400">Перезвоним в ближайшее время</p>
+                  </div>
+                </div>
+
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-semibold text-[#333] mb-1">Имя <span className="text-red-500">*</span></label>
+                    <Input
+                      value={callForm.name}
+                      onChange={(e) => { setCallForm({ ...callForm, name: e.target.value }); setCallErrors({ ...callErrors, name: '' }); }}
+                      placeholder="Ваше имя"
+                      className={callErrors.name ? 'border-red-400' : ''}
+                    />
+                    {callErrors.name && <p className="text-red-500 text-xs mt-1">{callErrors.name}</p>}
+                  </div>
+                  <div>
+                    <label className="block text-sm font-semibold text-[#333] mb-1">Почта <span className="text-red-500">*</span></label>
+                    <Input
+                      type="email"
+                      value={callForm.email}
+                      onChange={(e) => { setCallForm({ ...callForm, email: e.target.value }); setCallErrors({ ...callErrors, email: '' }); }}
+                      placeholder="example@mail.ru"
+                      className={callErrors.email ? 'border-red-400' : ''}
+                    />
+                    {callErrors.email && <p className="text-red-500 text-xs mt-1">{callErrors.email}</p>}
+                  </div>
+                  <div>
+                    <label className="block text-sm font-semibold text-[#333] mb-1">Телефон <span className="text-red-500">*</span></label>
+                    <Input
+                      type="tel"
+                      value={callForm.phone}
+                      onChange={(e) => { setCallForm({ ...callForm, phone: e.target.value }); setCallErrors({ ...callErrors, phone: '' }); }}
+                      placeholder="+7 (___) ___-__-__"
+                      className={callErrors.phone ? 'border-red-400' : ''}
+                    />
+                    {callErrors.phone && <p className="text-red-500 text-xs mt-1">{callErrors.phone}</p>}
+                  </div>
+                </div>
+
+                <button
+                  onClick={submitCallForm}
+                  disabled={callStatus === 'loading'}
+                  className="btn-call mt-6 w-full bg-[#388e3c] text-white font-bold py-3 rounded-xl transition-colors duration-300 disabled:opacity-60"
+                >
+                  {callStatus === 'loading' ? 'Отправляем...' : 'Отправить заявку'}
+                </button>
+              </>
+            ) : (
+              <div className="text-center py-8">
+                <div className="text-5xl mb-4">🎉</div>
+                <h3 className="font-extrabold text-2xl text-[#1E3A5F] mb-3" style={{ fontFamily: 'Montserrat' }}>
+                  Спасибо, что обратились к нам!
+                </h3>
+                <p className="text-gray-500 text-base leading-relaxed">
+                  С Вами свяжутся в ближайшее время.
+                </p>
+                <button
+                  onClick={closeCallModal}
+                  className="mt-8 px-8 py-2.5 bg-[#388e3c] text-white font-semibold rounded-xl hover:bg-[#2e7d32] transition-colors"
+                >
+                  Закрыть
+                </button>
+              </div>
+            )}
+          </div>
+        </div>,
+        document.body
+      )}
     </div>
   );
 };
