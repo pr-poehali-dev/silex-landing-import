@@ -319,20 +319,27 @@ function CatalogSection({ onOrderClick }: { onOrderClick: (params: string) => vo
   if (!catId) return (
     <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
       {CATALOG.map((c) => (
-        <button
+        <div
           key={c.id}
           onClick={() => { setCatId(c.id); setSubId(null); setSelectedItem(null); setSelectedColor(null); }}
-          className="group relative overflow-hidden rounded-2xl h-56 sm:h-64 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 text-left"
+          className="flip-card h-56 sm:h-64 cursor-pointer"
         >
-          <img src={c.image} alt={c.title} className={`absolute inset-0 w-full h-full ${'imageFit' in c ? c.imageFit : 'object-cover'} group-hover:scale-105 transition-transform duration-500`} />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#1E3A5F]/80 via-[#1E3A5F]/30 to-transparent" />
-          <div className="absolute bottom-0 left-0 right-0 p-5">
-            <h3 className="text-white font-extrabold text-xl" style={{ fontFamily: 'Montserrat' }}>{c.title}</h3>
-            <span className="inline-flex items-center gap-1 mt-1 text-[#E67E22] text-sm font-semibold">
-              Смотреть <Icon name="ChevronRight" size={16} />
-            </span>
+          <div className="flip-card-inner">
+            <div className="flip-card-front rounded-2xl overflow-hidden shadow-md">
+              <img src={c.image} alt={c.title} className={`w-full h-full ${'imageFit' in c ? c.imageFit : 'object-cover'}`} />
+            </div>
+            <div className="flip-card-back rounded-2xl overflow-hidden shadow-xl">
+              <img src={c.image} alt={c.title} className={`absolute inset-0 w-full h-full ${'imageFit' in c ? c.imageFit : 'object-cover'}`} />
+              <div className="absolute inset-0 bg-[#1E3A5F]/55" />
+              <div className="absolute inset-0 flex flex-col items-center justify-center text-white text-center p-6">
+                <h3 className="font-extrabold text-2xl mb-2" style={{ fontFamily: 'Montserrat' }}>{c.title}</h3>
+                <span className="inline-flex items-center gap-1 text-[#E67E22] text-sm font-semibold">
+                  Смотреть <Icon name="ChevronRight" size={16} />
+                </span>
+              </div>
+            </div>
           </div>
-        </button>
+        </div>
       ))}
     </div>
   );
