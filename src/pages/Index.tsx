@@ -657,13 +657,6 @@ const Index = () => {
           </nav>
 
           <div className="flex items-center gap-3">
-            <a
-              href="tel:+74232448010"
-              className={`hidden md:flex items-center gap-1.5 text-sm font-semibold transition-colors ${headerScrolled ? 'text-[#1E3A5F]' : 'text-white'}`}
-            >
-              <Icon name="Phone" size={16} />
-              +7 (423) 244-80-10
-            </a>
             <Button
               size="sm"
               className="bg-[#E67E22] hover:bg-[#d35400] text-white font-semibold hidden md:flex relative overflow-hidden ripple-btn"
