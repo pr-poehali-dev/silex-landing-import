@@ -541,13 +541,6 @@ const Index = () => {
 
   const projects = [
     {
-      frontImage: 'https://cdn.poehali.dev/projects/53d4eefc-24fa-41e9-b99a-3ee269a34aaf/bucket/2b316a9f-dd27-4186-80d5-f14031da1d9d.jpeg',
-      frontTitle: 'Объект 1',
-      backTitle: 'Частный дом',
-      backDescription: 'Поставка газобетона для строительства трёхэтажного частного дома с гаражом.',
-      backImage: 'https://cdn.poehali.dev/projects/53d4eefc-24fa-41e9-b99a-3ee269a34aaf/bucket/2b316a9f-dd27-4186-80d5-f14031da1d9d.jpeg',
-    },
-    {
       frontImage: 'https://cdn.poehali.dev/projects/53d4eefc-24fa-41e9-b99a-3ee269a34aaf/bucket/51d898ff-06ce-4700-80cc-971341176291.jpeg',
       frontTitle: 'Объект 2',
       backTitle: 'Одноэтажный дом',
