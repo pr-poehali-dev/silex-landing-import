@@ -1,0 +1,8 @@
+CREATE TABLE t_p79050241_silex_landing_import.reviews (
+  id SERIAL PRIMARY KEY,
+  author VARCHAR(255) NOT NULL,
+  text TEXT NOT NULL,
+  stars INTEGER NOT NULL CHECK (stars BETWEEN 1 AND 5),
+  approved BOOLEAN NOT NULL DEFAULT FALSE,
+  created_at TIMESTAMP NOT NULL DEFAULT NOW()
+);
