@@ -1,6 +1,7 @@
 import json
 import os
 import smtplib
+from datetime import datetime, timezone, timedelta
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
@@ -25,6 +26,9 @@ def handler(event: dict, context) -> dict:
     email = body.get('email', '').strip()
     phone = body.get('phone', '').strip()
     message = body.get('message', '').strip()
+
+    msk_time = datetime.now(timezone(timedelta(hours=10)))
+    received_at = msk_time.strftime('%d %B %Y, %H:%M (UTC+10, Владивосток)')
 
     source_ip = event.get('requestContext', {}).get('identity', {}).get('sourceIp', 'неизвестно')
     referer = event.get('headers', {}).get('referer') or event.get('headers', {}).get('Referer') or 'не указан'
@@ -57,6 +61,10 @@ def handler(event: dict, context) -> dict:
             <tr>
                 <td style="padding: 8px 12px; background: #f5f5f5; font-weight: bold;">Источник</td>
                 <td style="padding: 8px 12px; border-bottom: 1px solid #eee;">{referer}</td>
+            </tr>
+            <tr>
+                <td style="padding: 8px 12px; background: #fff3cd; font-weight: bold; color: #856404;">⏰ Время заявки</td>
+                <td style="padding: 8px 12px; border-bottom: 1px solid #eee; background: #fff3cd; color: #856404; font-weight: bold;">{received_at}</td>
             </tr>
             <tr>
                 <td style="padding: 8px 12px; background: #f5f5f5; font-weight: bold;">IP-адрес</td>
