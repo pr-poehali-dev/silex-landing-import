@@ -598,12 +598,12 @@ const Index = () => {
             />
           </div>
 
-          <nav className="hidden lg:flex items-center gap-6">
+          <nav className="hidden lg:flex items-center gap-8">
             {navItems.map((item) => (
               <button
                 key={item.id}
                 onClick={() => scrollTo(item.id)}
-                className={`text-sm font-medium transition-colors hover:text-[#E67E22] ${headerScrolled ? 'text-[#333]' : 'text-white/90'}`}
+                className={`text-base font-semibold transition-colors hover:text-[#E67E22] ${headerScrolled ? 'text-[#333]' : 'text-white/90'}`}
               >
                 {item.label}
               </button>
