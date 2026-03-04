@@ -807,7 +807,7 @@ const Index = () => {
           <div className="scroll-animate text-center mb-12 md:mb-16">
             <p className="text-[#E67E22] font-semibold text-sm uppercase tracking-widest mb-3">Отзывы</p>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-[#1E3A5F]" style={{ fontFamily: 'Montserrat' }}>
-              Нам доверяют застройщики
+              Отзывы
             </h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
