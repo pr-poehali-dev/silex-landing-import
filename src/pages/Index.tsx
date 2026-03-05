@@ -716,7 +716,7 @@ const Index = () => {
       <section
         className="relative min-h-screen flex items-start justify-center"
         style={{
-          backgroundImage: `linear-gradient(135deg, rgba(30,58,95,0.82) 0%, rgba(30,58,95,0.55) 100%), url('${HERO_IMG}')`,
+          backgroundImage: `url('${HERO_IMG}')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
