@@ -513,6 +513,7 @@ function CatalogSection({ onOrderClick }: { onOrderClick: (params: string) => vo
 
 // ─── INDEX ────────────────────────────────────────────────────────────────────
 const Index = () => {
+  const [heroTextOffset, setHeroTextOffset] = useState(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [headerScrolled, setHeaderScrolled] = useState(false);
   const [formData, setFormData] = useState({ name: '', phone: '', message: '' });
@@ -721,11 +722,49 @@ const Index = () => {
           backgroundPosition: 'center',
         }}
       >
-        <div className="max-w-[1200px] mx-auto px-4 md:px-8 text-center text-white md:pt-[300px] py-[205px]">
-          <h1 className="md:text-5xl lg:text-6xl leading-tight animate-fade-in font-black px-[75px] my-[26px] mx-0 py-[15px] text-5xl" style={{ fontFamily: 'Montserrat' }}>
-            Асбестоцементные трубы и шифер.
+        {/* Кнопки управления позицией текста */}
+        <div className="absolute right-4 top-1/2 -translate-y-1/2 z-20 flex flex-col gap-2">
+          <button
+            onClick={() => setHeroTextOffset(prev => Math.max(prev - 40, -400))}
+            className="w-9 h-9 rounded-full bg-white/20 backdrop-blur-sm border border-white/40 text-white flex items-center justify-center hover:bg-white/35 transition-all text-lg font-bold select-none"
+            title="Поднять текст"
+          >↑</button>
+          <button
+            onClick={() => setHeroTextOffset(0)}
+            className="w-9 h-9 rounded-full bg-white/20 backdrop-blur-sm border border-white/40 text-white flex items-center justify-center hover:bg-white/35 transition-all text-xs font-bold select-none"
+            title="По центру"
+          >●</button>
+          <button
+            onClick={() => setHeroTextOffset(prev => Math.min(prev + 40, 400))}
+            className="w-9 h-9 rounded-full bg-white/20 backdrop-blur-sm border border-white/40 text-white flex items-center justify-center hover:bg-white/35 transition-all text-lg font-bold select-none"
+            title="Опустить текст"
+          >↓</button>
+        </div>
+
+        <div
+          className="max-w-[1200px] mx-auto px-4 md:px-8 text-center text-white transition-all duration-300"
+          style={{ marginTop: `calc(205px + ${heroTextOffset}px)` }}
+        >
+          <h1
+            className="md:text-5xl lg:text-6xl leading-tight animate-fade-in font-black px-[75px] my-[26px] mx-0 py-[15px] text-5xl"
+            style={{
+              fontFamily: 'Montserrat',
+              WebkitTextStroke: '1px rgba(0,0,0,0.55)',
+              paintOrder: 'stroke fill',
+            }}
+          >
+            <span style={{
+              color: '#e8e8e8',
+              textShadow: '0 0 18px rgba(200,200,220,0.7), 0 0 40px rgba(180,180,210,0.45), 0 0 70px rgba(160,160,200,0.25)',
+            }}>
+              Асбестоцементные трубы и шифер.
+            </span>
             <br />
-            <span className="text-[#E67E22]">Классика, которая работает</span>
+            <span style={{
+              color: '#E67E22',
+              WebkitTextStroke: '1px rgba(0,0,0,0.55)',
+              paintOrder: 'stroke fill',
+            }}>Классика, которая работает</span>
           </h1>
 
         </div>
