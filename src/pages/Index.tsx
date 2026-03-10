@@ -669,6 +669,9 @@ const Index = () => {
                 circle.style.cssText = `width:${diameter}px;height:${diameter}px;left:${e.clientX - btn.getBoundingClientRect().left - radius}px;top:${e.clientY - btn.getBoundingClientRect().top - radius}px;position:absolute;border-radius:50%;background:rgba(255,255,255,0.4);transform:scale(0);animation:ripple 0.6s linear;pointer-events:none;`;
                 btn.appendChild(circle);
                 setTimeout(() => circle.remove(), 600);
+                if (typeof window.ym === 'function') {
+                  window.ym(107227393, 'reachGoal', 'click_poluchit_raschet');
+                }
                 scrollTo('callback');
               }}
             >
