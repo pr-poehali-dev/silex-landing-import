@@ -555,6 +555,9 @@ const Index = () => {
         body: JSON.stringify({ name: callForm.name, email: callForm.email, phone: callForm.phone, message: 'Заявка на обратный звонок' }),
       });
       setCallStatus('success');
+      if (typeof window.ym === 'function') {
+        window.ym(107227393, 'reachGoal', 'send_zvonok');
+      }
       confetti({ particleCount: 180, spread: 100, origin: { y: 0.5 }, colors: ['#4caf50', '#e67e22', '#1e3a5f', '#fff', '#ffeb3b'] });
     } catch {
       setCallStatus('success');
@@ -678,7 +681,12 @@ const Index = () => {
               Получить расчёт
             </Button>
             <button
-              onClick={() => setCallModalOpen(true)}
+              onClick={() => {
+                setCallModalOpen(true);
+                if (typeof window.ym === 'function') {
+                  window.ym(107227393, 'reachGoal', 'click_zakazat_zvonok');
+                }
+              }}
               className="btn-call hidden md:flex items-center gap-1.5 text-sm font-semibold text-white bg-[#388e3c] border border-[#388e3c] rounded-md px-4 py-2 transition-colors duration-300"
             >
               <Icon name="PhoneCall" size={15} />
