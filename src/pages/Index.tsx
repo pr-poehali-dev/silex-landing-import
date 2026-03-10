@@ -1033,6 +1033,9 @@ const Index = () => {
                         if (res.ok) {
                           setFormStatus('success');
                           setFormData({ name: '', phone: '', message: '' });
+                          if (typeof window.ym === 'function') {
+                            window.ym(107227393, 'reachGoal', 'send_zayavka');
+                          }
                         } else {
                           setFormStatus('error');
                         }
