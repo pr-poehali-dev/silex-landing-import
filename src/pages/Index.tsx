@@ -1139,10 +1139,10 @@ const Index = () => {
                 </div>
                 <div>
                   <div className="font-semibold text-[#333] mb-1">Телефоны</div>
-                  <a href="tel:+74232448010" className="block text-[#1E3A5F] hover:text-[#E67E22] transition-colors font-medium">
+                  <a href="tel:+74232448010" onClick={() => { if (typeof window.ym === 'function') window.ym(107227393, 'reachGoal', 'click_phone'); }} className="block text-[#1E3A5F] hover:text-[#E67E22] transition-colors font-medium">
                     +7 (423) 244-80-10
                   </a>
-                  <a href="https://max.ru/u/f9LHodD0cOJeqBIEYMN3NMyf-Hx85yqfnOpRApJuFQvoU_sOxqtkoeqraow" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-[#1E3A5F] hover:text-[#E67E22] transition-colors font-medium mt-1">
+                  <a href="https://max.ru/u/f9LHodD0cOJeqBIEYMN3NMyf-Hx85yqfnOpRApJuFQvoU_sOxqtkoeqraow" onClick={() => { if (typeof window.ym === 'function') window.ym(107227393, 'reachGoal', 'click_phone'); }} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-[#1E3A5F] hover:text-[#E67E22] transition-colors font-medium mt-1">
                     +7 (914) 792-27-84 <span className="text-[#333]/40 text-sm">(Max)</span>
                     <img src="https://cdn.poehali.dev/projects/53d4eefc-24fa-41e9-b99a-3ee269a34aaf/bucket/7682a930-2e78-4941-9562-49c03023e6f2.png" alt="Max" className="w-5 h-5 object-contain flex-shrink-0" />
                   </a>
@@ -1155,7 +1155,7 @@ const Index = () => {
                 </div>
                 <div>
                   <div className="font-semibold text-[#333] mb-1">Email</div>
-                  <a href="mailto:vostokinveststal@mail.ru" className="text-[#1E3A5F] hover:text-[#E67E22] transition-colors font-medium">
+                  <a href="mailto:vostokinveststal@mail.ru" onClick={() => { if (typeof window.ym === 'function') window.ym(107227393, 'reachGoal', 'click_email'); }} className="text-[#1E3A5F] hover:text-[#E67E22] transition-colors font-medium">
                     vostokinveststal@mail.ru
                   </a>
                 </div>
@@ -1167,7 +1167,7 @@ const Index = () => {
                 </div>
                 <div>
                   <div className="font-semibold text-[#333] mb-1">Сайт</div>
-                  <a href="https://vi-stal.ru" target="_blank" rel="noopener noreferrer" className="text-[#1E3A5F] hover:text-[#E67E22] transition-colors font-medium">
+                  <a href="https://vi-stal.ru" onClick={() => { if (typeof window.ym === 'function') window.ym(107227393, 'reachGoal', 'click_site'); }} target="_blank" rel="noopener noreferrer" className="text-[#1E3A5F] hover:text-[#E67E22] transition-colors font-medium">
                     vi-stal.ru
                   </a>
                 </div>
@@ -1188,12 +1188,14 @@ const Index = () => {
                   href="https://t.me/+79147922784"
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => { if (typeof window.ym === 'function') window.ym(107227393, 'reachGoal', 'click_telegram'); }}
                   className="w-12 h-12 rounded-xl bg-[#0088cc]/10 flex items-center justify-center hover:bg-[#0088cc]/20 transition-colors group"
                 >
                   <Icon name="Send" size={20} className="text-[#0088cc] group-hover:scale-110 transition-transform" />
                 </a>
                 <a
                   href="tel:+79147922784"
+                  onClick={() => { if (typeof window.ym === 'function') window.ym(107227393, 'reachGoal', 'click_phone'); }}
                   className="w-12 h-12 rounded-xl bg-[#E67E22]/10 flex items-center justify-center hover:bg-[#E67E22]/20 transition-colors group"
                 >
                   <Icon name="PhoneCall" size={20} className="text-[#E67E22] group-hover:scale-110 transition-transform" />
@@ -1201,7 +1203,10 @@ const Index = () => {
               </div>
             </div>
 
-            <div className="scroll-animate rounded-2xl overflow-hidden shadow-lg h-[400px]">
+            <div
+              className="scroll-animate rounded-2xl overflow-hidden shadow-lg h-[400px] relative"
+              onClick={() => { if (typeof window.ym === 'function') window.ym(107227393, 'reachGoal', 'click_yandex_map'); }}
+            >
               <iframe
                 src="https://yandex.ru/map-widget/v1/?text=%D0%92%D0%BE%D1%81%D1%82%D0%BE%D0%BA-%D0%98%D0%BD%D0%B2%D0%B5%D1%81%D1%82%D0%A1%D1%82%D0%B0%D0%BB%D1%8C&ll=132.183340%2C43.354430&z=16&mode=search&ol=biz"
                 width="100%"
